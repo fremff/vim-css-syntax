@@ -2,11 +2,11 @@
 
 ##  Introduction
   
-The script is based on the official css syntax file, you can find it [in here](http://fleiner.com/vim/syntax/css.vim)
+The script is based on the official css syntax file, to find it [in here](http://fleiner.com/vim/syntax/css.vim)
 CSS3 syntax highlighting support. Include many of CSS3 Property,Attribute,Selector,
 support for the prefix " -moz-,-webkit- ,-o-,-ms- ", and complete the At-rule groups,
-see : https://developer.mozilla.org/en-US/docs/CSS/At-rule
-Added beautify CSS file function,  use the :CSSBeautify command.
+see : https://developer.mozilla.org/en-US/docs/CSS/At-rule ,
+support for beautify CSS feature, you can use it to by the :CSSBeautify command.
 
 
 ##  For the CSSBeautify command :
@@ -15,7 +15,7 @@ Added beautify CSS file function,  use the :CSSBeautify command.
 
 style
 
-*{ width:680px ;
+body{ width:680px ;
 background-color:#FFF;
 box-shadow: -1px 1px 3px #DDD;
 padding: 10px
@@ -30,7 +30,7 @@ a:nth-of-type(2n)
 
 style
 
-* {
+body {
 width: 680px ;
 background-color: #FFF ;
 box-shadow: -1px 1px 3px #DDD ;
