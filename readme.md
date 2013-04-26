@@ -2,18 +2,18 @@
 
 ##  Introduction
   
-The script is based on the official css syntax file, to find it [in here](http://fleiner.com/vim/syntax/css.vim)
-CSS3 syntax highlighting support. Include many of CSS3 Property,Attribute,Selector,
-support for the prefix " -moz-,-webkit- ,-o-,-ms- ", and complete the At-rule groups,
-see : https://developer.mozilla.org/en-US/docs/CSS/At-rule ,
-support for beautify CSS feature, you can use it to by the :CSSBeautify command.
-
+The script is based on the [original css syntax file](http://fleiner.com/vim/syntax/css.vim),
+and support for CSS3 syntax highlighting.
+This script include many of CSS3 Property,Attribute and Selector,
+the prefix " -moz-,-webkit- ,-o-,-ms- " support,
+and complete the At-rule groups, see the [link](https://developer.mozilla.org/en-US/docs/CSS/At-rule).
+Also, it support the beautify CSS feature, you can use it to by the :CSSBeautify command.
 
 ##  For the CSSBeautify command :
 
 /* Original */
 
-style
+style:
 
 body{ width:680px ;
 background-color:#FFF;
@@ -28,7 +28,7 @@ a:nth-of-type(2n)
 
 /* After the command execution */
 
-style
+style:
 
 body {
 width: 680px ;
