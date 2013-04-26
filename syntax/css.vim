@@ -101,9 +101,8 @@ syn region  cssFunction transparent contained matchgroup=cssFunctionName start="
 "  Mozilla Extension of the CSS background-image
 syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\<-moz-image-rect\s*(" end=")" oneline
 "  CSS function calc()
-syn region  cssCalcFunction transparent contained matchgroup=cssFunctionName start="\<calc\s*(" end=")" oneline
-syn match   cssCalcExpressions contained "\%(+\|-\|*\|/\)" display containedin=cssCalcFunction
-syn cluster cssFunctions contains=cssFunction,cssCalcFunction
+syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\<calc\s*(" end=")" contains=cssFunction,cssCalcExpressions,cssValue.* oneline
+syn match   cssCalcExpressions contained "\%(+\|-\|*\|/\)" display
 
 syn match   cssImportant contained "!\s*important\>" display
 
@@ -285,7 +284,7 @@ syn match   cssBoxAttr contained "\<\(\(flex-\(start\|end\)\)\|\(row\|column\|wr
 syn match   cssBraces contained "[{}]"
 syn match   cssError contained "{@<>"
 "syn region cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=cssProperty,cssComment,,cssError
-syn region  cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,@cssFunctions,cssUnicodeEscape
+syn region  cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,cssFunction,cssUnicodeEscape
 syn match   cssBraceError "}"
 
 " At-rule Group
