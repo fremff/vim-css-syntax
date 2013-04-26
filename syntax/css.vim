@@ -102,7 +102,7 @@ syn region  cssFunction transparent contained matchgroup=cssFunctionName start="
 syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\<-moz-image-rect\s*(" end=")" oneline
 "  CSS function calc()
 syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\<calc\s*(" end=")" contains=cssFunction,cssCalcExpressions,cssValue.* oneline
-syn match   cssCalcExpressions contained "\%(+\|-\|*\|/\)" display
+syn match   cssCalcExpressions contained "\%(+\|-\|\*\|\/\)" display
 
 syn match   cssImportant contained "!\s*important\>" display
 
@@ -119,7 +119,7 @@ syn match   cssFontAttr contained "\<small\%(-\%(caps\|caption\)\)\=\>" display
 syn match   cssFontAttr contained "\<x\{1,2\}-\%(large\|small\)\>" display
 syn match   cssFontAttr contained "\<message-box\>" display
 syn match   cssFontAttr contained "\<status-bar\>" display
-syn match   cssFontAttr contained "\<\%(\%(ultra\|extra\|semi\|status-bar\)-\)\=\(condensed\|expanded\)\>" display
+syn match   cssFontAttr contained "\<\%(\%(ultra\|extra\|semi\)-\)\=\(condensed\|expanded\)\>" display
 syn keyword cssFontAttr contained cursive fantasy monospace italic oblique
 syn keyword cssFontAttr contained bold bolder lighter larger smaller
 syn keyword cssFontAttr contained icon menu
@@ -174,14 +174,13 @@ syn keyword cssUIAttr contained dotted dashed solid double groove ridge inset ou
 syn keyword cssUIAttr contained invert
 
 syn match   cssRenderAttr contained "\<marker\>" display
-syn match   cssRenderProp contained "\<\(display\|marker-offset\|unicode-bidi\|white-space\)\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\<\(display\|marker-offset\|white-space\)\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\<\(position\|direction\)\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\<\(top\|bottom\|left\|right\)\>\(\s*:\)\@=" display
 syn keyword cssRenderAttr contained block inline compact
 syn match   cssRenderAttr contained "\<table\%(-\%(\%(header\|footer\)-group\|\%(row\|column\)\%(-group\)\=\|cell\|caption\|colgroup\)\)\=\>" display
 syn keyword cssRenderAttr contained static relative absolute fixed
 syn keyword cssRenderAttr contained ltr rtl embed bidi-override pre nowrap pre-wrap pre-line
-syn match   cssRenderAttr contained "\<bidi-override\>" display
 
 
 syn match   cssAuralProp contained "\<\(pause\|cue\)\%(-\%(before\|after\)\)\=\>\(\s*:\)\@=" display
