@@ -74,8 +74,8 @@ syn keyword cssColor contained aqua black blue fuchsia gray green lime maroon na
 syn keyword cssColor contained aliceblue antiquewhite aquamarine azure beige bisque blanchedalmond blueviolet brown burlywood
 syn keyword cssColor contained cadetblue chartreuse chocolate coral cornflowerblue cornsilk crimson cyan
 syn keyword cssColor contained darkblue darkcyan darkgoldenrod darkgray darkgreen darkgrey darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred darksalmon darkseagreen darkslateblue darkslategray darkslategrey darkturquoise darkviolet deeppink deepskyblue dimgray dimgrey dodgerblue
-syn keyword cssColor contained firebrick floralwhite forestgreen gainsboro ghostwhite gold goldenrod greenyellow grey
-syn keyword cssColor contained honeydew hotpink indianred indigo ivory khaki lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightgrey lightpink lightsalmon lightseagreen lightskyblue lightslategray lightslategrey lightsteelblue lightyellow limegreen linen
+syn keyword cssColor contained firebrick floralwhite forestgreen gainsboro ghostwhite gold goldenrod greenyellow grey honeydew hotpink indianred indigo ivory khaki
+syn keyword cssColor contained lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightgrey lightpink lightsalmon lightseagreen lightskyblue lightslategray lightslategrey lightsteelblue lightyellow limegreen linen
 syn keyword cssColor contained magenta mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin
 syn keyword cssColor contained navajowhite oldlace olivedrab orangered orchid palegoldenrod palegreen paleturquoise palevioletred papayawhip peachpuff peru pink plum powderblue
 syn keyword cssColor contained rosybrown royalblue saddlebrown salmon sandybrown seagreen seashell sienna skyblue slateblue slategray slategrey snow springgreen steelblue tan thistle tomato turquoise violet wheat whitesmoke yellowgreen
@@ -242,7 +242,7 @@ syn match   cssRenderAttr contained "\<\(flex\|grid\|inline-\(block\|flex\|grid\
 syn match   cssBoxProp contained "\<marquee\(-\(direction\|play-count\|speed\|style\)\)\=\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<overflow-\(x\|y\|style\)\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\(-webkit-\)\=\(-moz-\)\@<!perspective\(-origin\)\=\>\(\s*:\)\@=" display
-syn match   cssRenderProp contained "\(-\(webkit\)-\|\)\(-\(moz\|o\)-\)\@<!animation\(-\(fill-mode\|direction\|name\|duration\|timing-function\|delay\|iteration-cout\|play-state\)\)\=\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\(-\(webkit\)-\|\)\(-\(moz\|o\)-\)\@<!animation\(-\(delay\|direction\|duration\|fill-mode\|iteration-count\|name\|play-state\|timing-function\)\)\=\>\(\s*:\)\@=" display
 syn match   cssUIProp contained "\(-\(moz\|webkit\)-\|\)appearance\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\(-\(moz\|webkit\)-\|\)box-\(align\|direction\|flex\|ordinal-group\|orient\|pack\|sizing\)\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<box-shadow\>\(\s*:\)\@=" display
@@ -273,11 +273,11 @@ syn match   cssTextProp contained "\<ime-mode\>" display
 syn keyword cssTextAttr contained active inactive disabled
 
 " Flexible Box
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!align-\(content\|items\|self\)\>\(\s*:\)\@=" display
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!flex\(-\(basis\|direction\|flow\|grow\|shrink\|wrap\)\)\=\>\(\s*:\)\@=" display
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!justify-content\>\(\s*:\)\@=" display
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!order\>\(\s*:\)\@=" display
-syn match   cssFlexboxAttr contained "\<\(\(flex-\(start\|end\)\)\|\(row\|column\|wrap\)\(-reverse\)\=\|space-\(between\|around\)\)\>" display
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!align-\(content\|items\|self\)\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!flex\(-\(basis\|direction\|flow\|grow\|shrink\|wrap\)\)\=\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!justify-content\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!order\>\(\s*:\)\@=" display
+syn match   cssBoxAttr contained "\<\(\(flex-\(start\|end\)\)\|\(row\|column\|wrap\)\(-reverse\)\=\|space-\(between\|around\)\)\>" display
 
 "syn match   cssProperty transparent contained "\<\(-\a\+-\)\=\a\+\(-\a\+\)\{0,3\}\>\(\s*:\)\@=" contains=css.\+Prop nextgroup=cssAttribute skipwhite
 "syn region  cssAttribute transparent contained matchgroup=cssPropColon start=":" skip="/\*.*\*/" matchgroup=NONE end=";\|[^}]\(}\)\@=" contains=cssComment,cssError,cssImportant,cssStringQ\+,cssUnicodeEscape,cssURL,cssFunction,cssColor,cssValue.\+,css.\+Attr
@@ -390,7 +390,7 @@ function! s:BeautifyTheCSS()
     \ %s/\(;\)\@<=\([^:]\+:\)\@=//ge|
     \ %s/\(\d\)\@<!}\s*\([A-Za-z0-9#*.@:][^{]*{\)\@=/}/ge|
     \ %s/\s\+$//e|
-    \ %s/\(^\s*[a-z-]\+\s*:\)\@<=\(\(\s\)\@!\|\s\{2,\}\)\|\(^\s*[a-z-]\+\s*:.*\S\)\@<=\(\s\{2,\}\)\=\(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)\@=/ /ge
+    \ %s/\(^\s*[a-z-]\+\s*:\)\@<=\(\(\s\)\@!\|\s\{2,\}\)\|\(^\s*[a-z-]\+\s*:.*\)\@<=\(\s\{2,\}\)\=\(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)\@=/ /ge
   execute "normal `z"
 endfunction
 
@@ -475,8 +475,6 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssRegexp String
   HiLink cssRegexpError Error
   HiLink cssCharset Statement
-  HiLink cssFlexboxProp StorageClass
-  HiLink cssFlexboxAttr Type
   HiLink cssValueResolution Number
   HiLink cssPage Statement
   HiLink cssNameSpace Statement
