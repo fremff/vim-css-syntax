@@ -174,7 +174,7 @@ syn keyword cssUIAttr contained dotted dashed solid double groove ridge inset ou
 syn keyword cssUIAttr contained invert
 
 syn match   cssRenderAttr contained "\<marker\>" display
-syn match   cssRenderProp contained "\<\(display\|marker-offset\|white-space\)\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\<\(display\|marker-offset\|unicode-bidi\|white-space\)\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\<\(position\|direction\)\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\<\(top\|bottom\|left\|right\)\>\(\s*:\)\@=" display
 syn keyword cssRenderAttr contained block inline compact
@@ -225,23 +225,26 @@ syn match   cssRenderProp contained "\(-\(webkit\)-\|\)\(-\(moz\|o\)-\)\@<!trans
 
 syn match   cssRenderAttr contained "\<ease\%(-\%(in-out\|out\|in\)\)\=\>" display
 syn match   cssCommonAttr contained "\(-moz-\)\@<!initial\>" display
-syn keyword cssRenderAttr contained alternate infinite linear paused running
-syn keyword cssRenderAttr contained backwards both flat forwards preserve-3d
+syn match   cssRenderAttr contained "\<\(alternate\%(-reverse\)\=\|reverse\)\>" display
+syn keyword cssRenderAttr contained forwards backwards
+syn keyword cssRenderAttr contained flat infinite paused running preserve-3d
+syn keyword cssRenderAttr contained linear step-start step-end
 syn keyword cssBoxAttr contained content-box border-box padding-box manual
-syn keyword cssBoxAttr contained balance horizontal reverse round space vertical
-syn keyword cssBoxAttr contained block-axis inline-axis ignore stretch stretch-to-fit
-syn keyword cssTextAttr contained ellipsis clip break-word break-all keep-all start end
+syn keyword cssBoxAttr contained balance horizontal round space vertical
+syn keyword cssBoxAttr contained ignore stretch stretch-to-fit
+syn keyword cssTextAttr contained ellipsis clip break-word break-all keep-all
+syn keyword cssTextAttr contained start end match-parent
 syn case match
 syn match   cssRenderAttr contained "\<\(optimize\%(Legibility\|Quality\|Speed\)\|geometricPrecision\)\>" display
 syn case ignore
 syn keyword cssGeneratedContentAttr contained bounding-box each-box cover contain
 syn match   cssRenderAttr contained "\<\(flex\|grid\|inline-\%(block\|flex\|grid\|table\)\|list-item\|run-in\)\>" display
 
-syn match   cssBoxProp contained "\<overflow-\%(x\|y\|style\)\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\(-webkit-\)\=\(-moz-\)\@<!perspective\%(-origin\)\=\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\(-\(webkit\)-\|\)\(-\(moz\|o\)-\)\@<!animation\%(-\%(delay\|direction\|duration\|fill-mode\|iteration-count\|name\|play-state\|timing-function\)\)\=\>\(\s*:\)\@=" display
 syn match   cssUIProp contained "\(-\(moz\|webkit\)-\|\)appearance\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\(-\(moz\|webkit\)-\|\)box-\%(align\|direction\|flex\|ordinal-group\|orient\|pack\|sizing\)\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-moz-\|\)\(-webkit-\)\@<!box-sizing\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<-moz-box-ordinal-group\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<box-shadow\>\(\s*:\)\@=" display
 
 syn match   cssBoxProp contained "\<-moz-border-\%(\%(top\|right\|bottom\|left\)-colors\)\>\(\s*:\)\@=" display
