@@ -142,7 +142,7 @@ syn keyword cssTextAttr contained center justify baseline text-top text-bottom
 
 syn match   cssBoxProp contained "\<\(margin\|padding\|border\)\%(-\%(top\|right\|bottom\|left\)\)\=\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<border-\%(\%(\%(top\|right\|bottom\|left\)-\)\=\%(width\|color\|style\)\)\=\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<\(width\|z-index\)\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<z-index\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<\%(min\|max\)-\%(width\|height\)\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<\(width\|height\|float\|clear\|overflow\%(-[xy]\)\=\|clip\|visibility\)\>\(\s*:\)\@=" display
 syn keyword cssBoxAttr contained thin thick both
@@ -269,6 +269,7 @@ syn match   cssBoxProp contained "\<clip-path\>\(\s*:\)\@=" display
 syn match   cssUIProp contained "\<pointer-events\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<-moz-stack-sizing\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\<image-rendering\>\(\s*:\)\@=" display
+
 syn match   cssTextProp contained "\<ime-mode\>" display
 syn keyword cssTextAttr contained active inactive disabled
 
@@ -310,13 +311,13 @@ syn match   cssDocumentComma contained "," nextgroup=cssDUrl,cssURLPrefix,cssDom
 syn region  cssDUrl contained matchgroup=cssFunctionName start="\<url\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn region  cssDocumentBlock contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssSupports,cssNestedSelector
 syn match   cssNestedSelector transparent contained "[a-zA-Z*#.:][^{]*" contains=@cssPseudo,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier nextgroup=cssDefinition skipwhite skipnl skipempty
-syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=['][^']*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=["][^"]*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\\\@<!\\[^\\]+ display
+syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=['][^']*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=["][^"]*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\\\@<!\\[^\\]+ display
 
 " Incomplete
-syn region  cssSupports transparent matchgroup=cssSupports start="^\s*\zs@supports\>" end="[^{]\ze{"he=e-1 contains=cssComment,cssSupportsOperators,cssSupportsBrackets nextgroup=cssSupportsBlock
-syn match   cssSupportsOperators contained "\%(\<not\|\s\zs\%(and\|or\)\)\>\ze\%(\s\|$\)"
+syn region  cssSupports transparent matchgroup=cssSupports start="^\s*\zs@supports\>" end="\ze{"he=e-1 contains=cssSupportsOperators,cssSupportsBrackets nextgroup=cssSupportsBlock
+syn match   cssSupportsOperators contained "\(\<not\|\s\zs\%(and\|or\)\)\>\ze\%(\s\|$\)"
 syn region  cssSupportsBrackets transparent contained start="(" end=")" contains=css.*Prop,css.*Attr,cssValue.*,cssSupportsOperators,cssSupportsBrackets
-syn region  cssSupportsBlock transparent contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssDocument,cssNestedSelector
+syn region  cssSupportsBlock transparent contained matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssDocument,cssNestedSelector
 
 "     Conditional Group Rules End
 
@@ -358,7 +359,7 @@ syn match   cssPseudoClassId ":\(nth\|nth-last\)-\(of-type\|child\)\>\((\(-\=\(\
 syn match   cssPseudoClassId ":\(root\|empty\|target\|enabled\|disabled\|checked\|default\|indeterminate\|invalid\|optional\|required\|valid\)\>" display
 syn match   cssPseudoClassId ":\(-\(moz\|webkit\)-\|\)any\>" display
 syn region  cssPseudoClassNot matchgroup=cssPseudoClassId start=":not(" end=")" contains=cssAttributeSelector,cssStringQQ oneline
-syn match   cssBracketsElement contained "\((\(-\=\(\d\+n\=\|n\)\(+\d\+\)\=\|odd\|even\))\)"hs=s+1,he=e-1 display
+syn match   cssBracketsElement contained "\((\(-\=\%(\d\+n\=\|n\)\%(+\d\+\)\=\|odd\|even\))\)"hs=s+1,he=e-1 display
 syn cluster cssPseudo contains=cssPseudoElement,cssPseudoClassId,cssPseudoClassNot,cssPseudoClassLang
 
 syn region  cssComment start="/\*" end="\*/" contains=@Spell
@@ -371,13 +372,17 @@ syn region  cssStringQ start=+'+ skip=+\\\\\|\\'+ end=+'+ contains=cssUnicodeEsc
 syn match   cssClassName "\.[A-Za-z][A-Za-z0-9_-]*" display
 
 
-if main_syntax == "css"
-  syn sync minlines=10
+if main_syntax == 'css'
+  " Syntax sync options
+  if exists("css_default_sync") && g:css_default_sync == 1
+    syn sync maxlines=200
+  elseif !exists("css_default_sync") || g:css_default_sync == 0
+    syn sync minlines=2000
+  endif
+  " Define the keyword identifier
+  "  Added '-' symbol and excluded '#' symbol
+  setlocal iskeyword+=-,^#
 endif
-
-" Set the keyword identifier
-"  Added '-' symbol and excluded '#' symbol
-setlocal iskeyword+=-,^#
 
 " Beautify CSS command
 command! -buffer CSSBeautify call s:BeautifyTheCSS()
