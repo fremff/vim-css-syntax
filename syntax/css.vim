@@ -306,8 +306,8 @@ syn region  cssRegexp contained matchgroup=cssFunctionName start="\<regexp\s*(\z
 syn match   cssDocumentComma contained "," nextgroup=cssDUrl,cssURLPrefix,cssDomain,cssRegexp skipwhite skipnl
 syn region  cssDUrl contained matchgroup=cssFunctionName start="\<url\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn region  cssDocumentBlock fold contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssSupports,cssNestedSelector
-syn match   cssNestedSelector transparent contained "[a-zA-Z*#.:][^{]*" contains=@cssPseudo,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier nextgroup=cssDefinition skipwhite skipnl skipempty
-syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=['][^']*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=["][^"]*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\\\@<!\\[^\\]+ display
+syn match   cssNestedSelector transparent contained "[a-zA-Z*#.:\\][^{]*" contains=@cssPseudo,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier nextgroup=cssDefinition skipwhite skipnl skipempty
+syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=['][^']*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=["][^"]*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\\\@<!\\[^\\]+ display
 
 " Incomplete
 syn region  cssSupports transparent matchgroup=cssSupports start="^\s*\zs@supports\>" end="\ze{" contains=cssSupportsOperators,cssSupportsBrackets nextgroup=cssSupportsBlock
@@ -414,7 +414,6 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssColorProp StorageClass
   HiLink cssTextProp StorageClass
   HiLink cssBoxProp StorageClass
-  HiLink cssRenderProp StorageClass
   HiLink cssAuralProp StorageClass
   HiLink cssRenderProp StorageClass
   HiLink cssGeneratedContentProp StorageClass
@@ -446,12 +445,11 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssFunctionName Function
   HiLink cssColor Constant
   HiLink cssIdentifier Function
-  HiLink cssInclude Include
   HiLink cssImportant Special
   HiLink cssBraces Function
   HiLink cssBraceError Error
   HiLink cssError Error
-  HiLink cssInclude Include
+  HiLink cssInclude Statement
   HiLink cssUnicodeEscape Special
   HiLink cssStringQQ String
   HiLink cssStringQ String
