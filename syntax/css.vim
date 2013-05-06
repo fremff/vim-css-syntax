@@ -79,6 +79,7 @@ syn keyword cssColor contained lavender lavenderblush lawngreen lemonchiffon lig
 syn keyword cssColor contained magenta mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin
 syn keyword cssColor contained navajowhite oldlace olivedrab orangered orchid palegoldenrod palegreen paleturquoise palevioletred papayawhip peachpuff peru pink plum powderblue
 syn keyword cssColor contained rosybrown royalblue saddlebrown salmon sandybrown seagreen seashell sienna skyblue slateblue slategray slategrey snow springgreen steelblue tan thistle tomato turquoise violet wheat whitesmoke yellowgreen
+
 syn case match
 syn match   cssColor contained "\<currentColor\>" display
 syn case ignore
@@ -104,7 +105,7 @@ syn match   cssCalcExpressions contained "\%(+\|-\|\*\|\/\)" display
 
 syn match   cssImportant contained "!\s*important\>" display
 
-" Properties and Attributes
+" Properties and Properties values
 
 syn keyword cssCommonAttr contained auto none inherit
 syn match   cssCommonAttr contained "\<\(top\|bottom\|left\|right\)\>\(:\)\@!" display
@@ -280,8 +281,8 @@ syn match   cssBoxAttr contained "\<\(flex-\%(start\|end\)\|\(row\|column\|wrap\
 
 syn match   cssBraces contained "[{}]"
 syn match   cssError contained "{@<>"
-"syn region cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=cssProperty,cssComment,,cssError
-syn region  cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,cssFunction,cssUnicodeEscape
+"syn region  cssDefinition fold transparent matchgroup=cssBraces start='{' end='}' contains=cssProperty,cssComment,,cssError
+syn region  cssDefinition fold transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,cssFunction,cssUnicodeEscape
 syn match   cssBraceError "}"
 
 " At-rule Group
@@ -290,7 +291,7 @@ syn match   cssBraceError "}"
 syn match   cssMedia "@media\>" nextgroup=cssMediaType,cssMediaOperators,cssMediaBrackets skipwhite
 syn keyword cssMediaType contained screen print aural braile embosed handheld projection tty tv all nextgroup=cssMediaComma,cssMediaBlock,cssMediaAnd skipwhite
 syn match   cssMediaComma contained "," nextgroup=cssMediaType skipwhite
-syn region  cssMediaBlock transparent contained matchgroup=cssBraces start='{' end='}' contains=cssDocument,cssPage,cssFontDescriptor,cssKeyFrame,cssSupports,cssTagName,cssError,cssComment,cssDefinition,cssUnicodeEscape,cssIdentifier,cssAttributeSelector,@cssPseudo,cssSelectorOp,cssClassName
+syn region  cssMediaBlock fold transparent contained matchgroup=cssBraces start='{' end='}' contains=cssDocument,cssPage,cssFontDescriptor,cssKeyFrame,cssSupports,cssTagName,cssError,cssComment,cssDefinition,cssUnicodeEscape,cssIdentifier,cssAttributeSelector,@cssPseudo,cssSelectorOp,cssClassName
 syn match   cssMediaAnd "\s\zsand\ze\s" contained nextgroup=cssMediaBrackets skipwhite
 syn match   cssMediaOperators "\<\(not\|only\)\>" contained nextgroup=cssMediaType skipwhite
 syn match   cssMediaFeatures contained "\<\(\(\(min\|max\)-\)\=\(\(\(device-\)\=\(height\|width\|aspect-ratio\)\)\|color\(-index\)\=\|monochrome\|resolution\)\|grid\|scan\|orientation\)\>" display nextgroup=cssMediaColon skipwhite
@@ -304,7 +305,7 @@ syn region  cssDomain contained matchgroup=cssFunctionName start="\<domain\s*(" 
 syn region  cssRegexp contained matchgroup=cssFunctionName start="\<regexp\s*(\ze['"]" end="['"]\zs)" contains=cssRegexpError nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn match   cssDocumentComma contained "," nextgroup=cssDUrl,cssURLPrefix,cssDomain,cssRegexp skipwhite skipnl
 syn region  cssDUrl contained matchgroup=cssFunctionName start="\<url\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
-syn region  cssDocumentBlock contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssSupports,cssNestedSelector
+syn region  cssDocumentBlock fold contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssSupports,cssNestedSelector
 syn match   cssNestedSelector transparent contained "[a-zA-Z*#.:][^{]*" contains=@cssPseudo,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier nextgroup=cssDefinition skipwhite skipnl skipempty
 syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=['][^']*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=["][^"]*\()\%(,\s*[a-z]\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\\\@<!\\[^\\]+ display
 
@@ -312,7 +313,7 @@ syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*[a-z]\+(
 syn region  cssSupports transparent matchgroup=cssSupports start="^\s*\zs@supports\>" end="\ze{" contains=cssSupportsOperators,cssSupportsBrackets nextgroup=cssSupportsBlock
 syn match   cssSupportsOperators contained "\(\<not\|\s\zs\%(and\|or\)\)\>\ze\%(\s\|$\)"
 syn region  cssSupportsBrackets transparent contained start="(" end=")" contains=css.*Prop,css.*Attr,cssValue.*,cssSupportsOperators,cssSupportsBrackets
-syn region  cssSupportsBlock transparent contained matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssDocument,cssNestedSelector
+syn region  cssSupportsBlock fold transparent contained matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssDocument,cssNestedSelector
 
 "     Conditional Group Rules End
 
@@ -320,11 +321,11 @@ syn match   cssPage "@page\>" nextgroup=cssPseudoClassId,cssDefinition
 
 syn match   cssKeyFrame "@\(-webkit-\)\=\(-\(moz\|o\)-\)\@<!keyframes\>" nextgroup=cssKeyFrameID skipwhite skipnl
 syn match   cssKeyFrameID contained "\<[a-zA-Z0-9_-]\+\>" nextgroup=cssKeyFrameBlock skipwhite skipnl
-syn region  cssKeyFrameBlock transparent contained matchgroup=cssBraces start="{" end="}" contains=cssError,cssComment,cssKeyFrameTime
+syn region  cssKeyFrameBlock fold transparent contained matchgroup=cssBraces start="{" end="}" contains=cssError,cssComment,cssKeyFrameTime
 syn match   cssKeyFrameTime contained "\<\(from\|to\)\>\|\d\+%" nextgroup=cssDefinition skipwhite skipnl
 
 syn match   cssFontDescriptor "@font-face\>" nextgroup=cssFontDescriptorBlock skipwhite skipnl
-syn region  cssFontDescriptorBlock contained transparent matchgroup=cssBraces start="{" end="}" contains=cssComment,cssError,cssUnicodeEscape,cssFontProp,cssFontAttr,cssCommonAttr,cssStringQ,cssStringQQ,cssFontDescriptorProp,cssValue.*,cssFontDescriptorFunction,cssUnicodeRange,cssFontDescriptorAttr,cssImportant
+syn region  cssFontDescriptorBlock fold contained transparent matchgroup=cssBraces start="{" end="}" contains=cssComment,cssError,cssUnicodeEscape,cssFontProp,cssFontAttr,cssCommonAttr,cssStringQ,cssStringQQ,cssFontDescriptorProp,cssValue.*,cssFontDescriptorFunction,cssUnicodeRange,cssFontDescriptorAttr,cssImportant
 syn match   cssFontDescriptorProp contained "\<\(unicode-range\|unit-per-em\|panose-1\|cap-height\|x-height\|definition-src\)\>\(\s*:\)\@=" display
 syn keyword cssFontDescriptorProp contained src stemv stemh slope ascent descent widths bbox baseline centerline mathline topline
 syn keyword cssFontDescriptorAttr contained all
@@ -384,13 +385,13 @@ command! -buffer CSSBeautify call s:BeautifyTheCSS()
 function! s:BeautifyTheCSS()
   execute "normal mz"
   %s/\%(\S\ze\|\s\{2,\}\|\s*\%(\n\s*\)\+\)\({\(\d\+\(,\d*\)\=}\)\@!\)\@=/ /ge|
-    \ %s/{\s*\(\s*\n\|\d\+\(,\d*\)\=}\)\@!/{/ge|
+    \ %s/{\s*\(\s*\n\|\d\+\(,\d*\)\=}\)\@!/{\r/ge|
     \ %s/\(\({\(\d*,\)\=\d*\)\@<![^;{}\t ]\)\@<=\(\s*\(\n\s*\)*}\)\@=/;/ge|
-    \ %s/\(}\|;\)\@<=\s*\%(\%(\n\s*\)\+\(\s\)\@<=\)\=}/}/ge|
-    \ %s/;\([^:;]\+:\)\@=/;/ge|
-    \ %s/\(\d\)\@<!}\s*\([A-Za-z0-9#*.@:][^{]*{\)\@=/}/ge|
+    \ %s/\(}\|;\)\@<=\s*\%(\%(\n\s*\)\+\(\s\)\@<=\)\=}/\r}/ge|
+    \ %s/;\([^:;]\+:\)\@=/;\r/ge|
+    \ %s/\(\d\)\@<!}\s*\([A-Za-z0-9#*.@:][^{]*{\)\@=/}\r/ge|
     \ %s/\s\+$//e|
-    \ %s/\(^\s*[a-z-]\+\s*:\)\@<=\(\(\s\)\@!\|\s\{2,\}\)\|\(^\s*[a-z-]\+\s*:.*\)\@<=\(\s\{2,\}\)\=\(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)\@=/ /ge
+    \ %s/\(^\s*[a-zA-Z-]\+\s*:\)\@<=\(\(\s\)\@!\|\s\{2,\}\)\|\(^\s*[a-zA-Z-]\+\s*:.*\S\)\@<=\(\s\{2,\}\)\=\(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)\@=/ /ge
   execute "normal `z"
 endfunction
 
