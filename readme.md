@@ -61,3 +61,6 @@ border-radius: 0px !important;
 ![Example 2](http://i.imgur.com/MBzDyhm.jpg)
 ![Example 3](http://i.imgur.com/HR2nYl2.jpg)
 
+
+## License
+The same as Vim, see [License](http://vimdoc.sourceforge.net/htmldoc/uganda.html&Uganda)
