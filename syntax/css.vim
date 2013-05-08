@@ -3,8 +3,8 @@
 " Based On: css.vim (from Vim 7.3)
 " Original Author: Claudio Fleiner <claudio@fleiner.com>
 " Maintainer: fremff <sorathone@gmail.com>
-" Last Change: Apr 20 2013
-" Version: 1.2.5
+" Last Change: 2013-05-08
+" Version: 1.3.0
 
 
 " For version 5.x: Clear all syntax items
