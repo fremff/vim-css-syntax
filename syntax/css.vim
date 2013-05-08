@@ -350,11 +350,11 @@ syn match   cssPseudoElement "\(:\{1,2\}\(before\|after\|first-letter\|first-lin
 syn region  cssPseudoClassLang matchgroup=cssPseudoClassId start=":lang(" end=")" oneline
 "  PseudoClass expansion list
 syn match   cssPseudoClassId ":\(first\|last\|only\)-\(of-type\|child\)\>" display
-syn match   cssPseudoClassId ":\(nth\|nth-last\)-\(of-type\|child\)\>\((\( \=\%([-+]\=\%(\d\+n\=\|n\) \=\%([-+] \=\d\+ \=\)\=\|\%(even\|odd\) \=\)\))\)\@=" display nextgroup=cssBracketsElement
+syn match   cssPseudoClassId ":\(nth\|nth-last\)-\(of-type\|child\)\>\((\( \=\([-+]\=\(\d\+n\=\|n\) \=\([-+] \=\d\+ \=\)\=\|even \=\|odd \=\)\))\)\@=" display nextgroup=cssBracketsElement
 syn match   cssPseudoClassId ":\(root\|empty\|target\|enabled\|disabled\|checked\|default\|indeterminate\|invalid\|optional\|required\|valid\)\>" display
 syn match   cssPseudoClassId ":\(-\(moz\|webkit\)-\|\)any\>" display
 syn region  cssPseudoClassNot matchgroup=cssPseudoClassId start=":not(" end=")" contains=cssAttributeSelector,cssStringQQ oneline
-syn match   cssBracketsElement contained "\((\)\( \=\%([-+]\=\%(\d\+n\=\|n\) \=\%([-+] \=\d\+ \=\)\=\|\%(even\|odd\) \=\)\)\()\)"hs=s+1,he=e-1 display
+syn match   cssBracketsElement contained "(\( \=\%([-+]\=\%(\d\+n\=\|n\) \=\%([-+] \=\d\+ \=\)\=\|\%(even\|odd\) \=\)\))"hs=s+1,he=e-1 display
 syn cluster cssPseudo contains=cssPseudoElement,cssPseudoClassId,cssPseudoClassNot,cssPseudoClassLang
 
 syn region  cssComment start="/\*" end="\*/" contains=@Spell
