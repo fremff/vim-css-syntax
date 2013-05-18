@@ -301,12 +301,12 @@ syn match   cssMediaFeaturesValueError contained "\(:\s*\)\@<=-\d\+\(\.\d\+\)\="
 syn match   cssDocument "@\(-moz-\)\=document\>" nextgroup=cssDUrl,cssURLPrefix,cssDomain,cssRegexp skipwhite
 syn region  cssURLPrefix contained matchgroup=cssFunctionName start="\<url-prefix\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn region  cssDomain contained matchgroup=cssFunctionName start="\<domain\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
-syn region  cssRegexp contained matchgroup=cssFunctionName start="\<regexp\s*(\ze['"]" end="['"]\zs)" contains=cssRegexpError nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
+syn region  cssRegexp contained matchgroup=cssFunctionName start="\<regexp\s*(" end=")\(,\|\_\s*{\d\@!\)\@=" contains=cssRegexpError nextgroup=cssDocumentComma,cssDocumentBlock oneline skipwhite
 syn match   cssDocumentComma contained "," nextgroup=cssDUrl,cssURLPrefix,cssDomain,cssRegexp skipwhite skipnl
 syn region  cssDUrl contained matchgroup=cssFunctionName start="\<url\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn region  cssDocumentBlock fold contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssSupports,cssNestedSelector
 syn match   cssNestedSelector transparent contained "[a-zA-Z*#.:\\][^{]*" contains=@cssPseudo,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier nextgroup=cssDefinition skipwhite skipnl skipempty
-syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=['][^']*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=["][^"]*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\\\@<!\\[^\\]+ display
+syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"][^)]\+\%(\()\%(,\|\_\s*{\d\@!\)\)\@=\|)[^)]\+.\{-}\()\%(,\|\s*{\d\@!\)\)\@=\)\|\(\<regexp(\)\@<=\%('[^')]\+\%(\()\%(,\|\_\s*{\d\@!\)\)\@=\|)[^')]\+[^']\{-}\()\%(,\|\_\s*{\d\@!\)\)\@=\)\|"[^")]\+\%(\()\%(,\|\_\s*{\d\@!\)\)\@=\|)[^")]\+[^"]\{-}\()\%(,\|\_\s*{\d\@!\)\)\@=\)\)\|\\\@<!\\[^\\]+ display
 
 " Incomplete
 syn region  cssSupports transparent matchgroup=cssSupports start="^\s*\zs@supports\>" end="\ze{" contains=cssSupportsOperators,cssSupportsBrackets nextgroup=cssSupportsBlock
@@ -335,7 +335,7 @@ syn match   cssUnicodeRange contained "U+\x\+-\x\+" display
 "   Nested at-rules End
 
 syn region  cssNameSpace transparent matchgroup=cssNameSpace start="@namespace" end=";"he=e-1 contains=cssComment,cssStringQ,cssStringQQ,cssURL,cssNameSpaceName
-syn match   cssNameSpaceName contained "\s\zs\<[a-zA-Z]\+\>\ze\s" display
+syn match   cssNameSpaceName contained "\s\zs\<\a\+\>\ze\s" display
 
 syn region  cssInclude transparent matchgroup=cssInclude start="@import" end=";"he=e-1 contains=cssComment,cssURL,cssUnicodeEscape,cssMediaType,cssStringQ,cssStringQQ
 
@@ -383,15 +383,15 @@ endif
 command! -buffer CSSBeautify call s:BeautifyTheCSS()
 function! s:BeautifyTheCSS()
   execute "normal mz"
-  %s/\%(\S\zs\|\s\{2,\}\|\s*\%(\n\s*\)\+\)\ze\({\(\d\+\(,\d*\)\=}\)\@!\)/ /ge|
+  %s/\%(\S\zs\|\s\{2,\}\|\s*\%(\n\s*\)\+\)\ze{\(\d\+\(,\d*\)\=}\)\@!/ /ge|
     \ %s/{\s*\(\s*\n\|\d\+\(,\d*\)\=}\)\@!/{\r/ge|
-    \ %s/\(\({\(\d*,\)\=\d*\)\@<![^;{}\t ]\)\zs\ze\(\s*\(\n\s*\)*}\)/;/ge|
-    \ %s/\(}\|;\)\zs\s*\%(\%(\n\s*\)\+\(\s\)\@<=\)\=\ze}/\r/ge|
+    \ %s/\({\(\d*,\)\=\d*\)\@<![^;{}\t ]\zs\ze\s*\%(\n\s*\)*}/;/ge|
+    \ %s/[};]\zs\s*\%(\%(\n\s*\)\+\(\s\)\@<=\)\=\ze}/\r/ge|
     \ %s/;\([^:;]\+:\)\@=/;\r/ge|
     \ %s/\(\d\)\@<!}\s*\([A-Za-z0-9#*.@:][^{]*{\)\@=/}\r/ge|
     \ %s/\s\+$//e|
-    \ %s/\(^\s*[a-zA-Z-]\+\s*:\)\zs\(\(\s\)\@!\|\s\{2,\}\)/ /e|
-    \ %s/\(^\s*[a-zA-Z-]\+\s*:.*\S\)\zs\(\s\{2,\}\)\=\ze\(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)/ /e
+    \ %s/^\s*[a-zA-Z-]\+\s*:\zs\%(\([ \t:]\)\@!\|\s\{2,\}\)\ze.*;$/ /e|
+    \ %s/^\s*[a-zA-Z-]\+\s*:[^!]\+\S\zs\%(\s\{2,\}\)\=\ze\%(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)/ /e
   execute "normal `z"
 endfunction
 
@@ -488,4 +488,3 @@ let b:current_syntax = "css"
 if main_syntax == 'css'
   unlet main_syntax
 endif
-
