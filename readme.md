@@ -1,19 +1,20 @@
-# Enhanced version of CSS syntax highlighting script file for vim, supports for CSS3 
+# Enhanced version of CSS syntax highlighting script file for vim, supports for CSS3 #
 
 ##  Introduction
   
 The script is based on the [original css syntax file](http://fleiner.com/vim/syntax/css.vim),
 and support for CSS3 syntax highlighting.
-This script include many of CSS3 Property,Attribute and Selector,
-and the prefix "<u>-moz-,-webkit-,-o-,-ms-</u>" support,
-and complete the **At-rule groups**, see the [link](https://developer.mozilla.org/en-US/docs/CSS/At-rule).
-Also, it support the **Beautify CSS** feature, you can use it to by the "<u>:CSSBeautify</u>" command.
+Included many of CSS3 Property,Attribute and Selector,
+and support for the prefix "<u>-moz-,-webkit-,-o-,-ms-</u>",too.  
+About **At-rule groups** that in the script file, see the [link][1].  
+Also, it support the ***Beautify CSS*** feature, you can use it to by the "_:CSSBeautify_" command.
 
 ## Options
 
-As a optional, "<u>css_default_sync</u>" argument can be used for switch the syntax synchronization settings.
-By default, to use "syn sync minlines=2000" as setting of synchronization. If you have a slow machine,
-so, you can use the following option(to use "<u>syn sync maxlines=200</u>"):
+As a optional, "css_default_sync" argument can be used for switch the syntax synchronization settings.
+By default, to use "`syn sync minlines=2000`" as the setting of syntax synchronization.  
+If you have a slow machine,
+so, you can use the following option(to use "`syn sync maxlines=200`"):
 ```vim
 let g:css_default_sync == 1
 ```
@@ -34,6 +35,8 @@ a:nth-of-type(2n)
 }
 .class #id{border-radius:0px!important;}
 ```
+
+---
 
 ### *Applied the command:*
 
@@ -58,3 +61,5 @@ border-radius: 0px !important;
 ![Example 3](http://i.imgur.com/HR2nYl2.jpg)
 
 
+
+[1]: https://developer.mozilla.org/en-US/docs/CSS/At-rule "At-rule"
