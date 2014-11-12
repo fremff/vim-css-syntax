@@ -5,24 +5,22 @@
 The script is based on the [original css syntax file](http://fleiner.com/vim/syntax/css.vim),
 and support for CSS3 syntax highlighting.
 This script include many of CSS3 Property,Attribute and Selector,
-and the prefix " -moz-,-webkit- ,-o-,-ms- " support,
-and complete the At-rule groups, see the [link](https://developer.mozilla.org/en-US/docs/CSS/At-rule).
-Also, it support the beautify CSS feature, you can use it to by the :CSSBeautify command.
+and the prefix "<u>-moz-,-webkit-,-o-,-ms-</u>" support,
+and complete the **At-rule groups**, see the [link](https://developer.mozilla.org/en-US/docs/CSS/At-rule).
+Also, it support the **Beautify CSS** feature, you can use it to by the "<u>:CSSBeautify</u>" command.
 
 ## Options
 
-As a optional, "css_default_sync" argument can be used for switch the syntax synchronization settings.
+As a optional, "<u>css_default_sync</u>" argument can be used for switch the syntax synchronization settings.
 By default, to use "syn sync minlines=2000" as setting of synchronization. If you have a slow machine,
-so, you can use the following option(to use "syn sync maxlines=200"):
+so, you can use the following option(to use "<u>syn sync maxlines=200</u>"):
 ```vim
 let g:css_default_sync == 1
 ```
 
-##  For the CSSBeautify command :
+##  About the CSSBeautify command :
 
-/* Original */
-
-Style:
+### *Original:*
 
 ```css
 body{ width:680px ;
@@ -37,9 +35,7 @@ a:nth-of-type(2n)
 .class #id{border-radius:0px!important;}
 ```
 
-/* After the command execution */
-
-Style:
+### *Applied the command:*
 
 ```css
 body {
