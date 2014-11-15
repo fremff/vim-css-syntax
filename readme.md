@@ -1,25 +1,24 @@
 # Enhanced version of CSS syntax highlighting script file for vim, supports for CSS3 #
 
-##  Introduction
+## Introduction
   
 The script is based on the [original css syntax file](http://fleiner.com/vim/syntax/css.vim),
 and support for CSS3 syntax highlighting.
 Included many of CSS3 Property,Attribute and Selector,
-and support for the prefix "<u>-moz-,-webkit-,-o-,-ms-</u>",too.  
+and support for the prefix "-moz-,-webkit-,-o-,-ms-",too.  
 About **At-rule groups** that in the script file, see the [link][1].  
-Also, it support the ***Beautify CSS*** feature, you can use it to by the "_:CSSBeautify_" command.
+Also, it support the ***Beautify CSS*** feature, you can use it to by the _:CSSBeautify_ command.
 
 ## Options
 
-As a optional, "css_default_sync" argument can be used for switch the syntax synchronization settings.
-By default, to use "`syn sync minlines=2000`" as the setting of syntax synchronization.  
-If you have a slow machine,
-so, you can use the following option(to use "`syn sync maxlines=200`"):
+As a optional, "css_fast_sync" argument can be used for switch the syntax synchronization settings.
+By default, to use `syn sync minlines=2000` as the setting of syntax synchronization.  
+If you have a slow machine,then you can use the following option(to use `syn sync maxlines=200`):
 ```vim
-let g:css_default_sync == 1
+let g:css_fast_sync = 1
 ```
 
-##  About the CSSBeautify command :
+## About the CSSBeautify command :
 
 ### *Original:*
 
@@ -35,8 +34,6 @@ a:nth-of-type(2n)
 }
 .class #id{border-radius:0px!important;}
 ```
-
----
 
 ### *Applied the command:*
 
