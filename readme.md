@@ -5,9 +5,9 @@
 The script is based on the [original css syntax file](http://fleiner.com/vim/syntax/css.vim),
 and support for CSS3 syntax highlighting.
 Included many of CSS3 Property,Attribute and Selector,
-and support for the prefix "-moz-,-webkit-,-o-,-ms-",too.  
+and support for the prefix  _"-moz-,-webkit-,-o-,-ms-"_,too.  
 About **At-rule groups** that in the script file, see the [link][1].  
-Also, it support the ***Beautify CSS*** feature, you can use it to by the _:CSSBeautify_ command.
+Also, it support the ***Beautify CSS*** feature, you can use it to by the `:CSSBeautify` command.
 
 ## Options
 
